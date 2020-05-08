@@ -13,7 +13,11 @@
 %% and that of ACL 08 by Joakim Nivre and Noah Smith
 
 \documentclass[11pt,a4paper]{article}
-\usepackage[hyperref]{acl2020}
+\usepackage[nohyperref]{acl2020}
+\usepackage{hyperref}
+\usepackage{xcolor}		% make links dark blue
+\definecolor{darkblue}{rgb}{0, 0, 0.5}
+\hypersetup{colorlinks=true,citecolor=darkblue, linkcolor=darkblue, urlcolor=darkblue}
 \usepackage{times}
 \usepackage{latexsym}
 \renewcommand{\UrlFont}{\ttfamily\small}
@@ -57,10 +61,6 @@
 \newcommand{\blankdocument}{[\textft{blank~document}]}
 \newcommand{\sep}{[\textft{sep}]}
 \newcommand{\answer}{[\textft{answer}]}
-
-\newcommand{\pl}[1]{{\color{red}{\textbf{[TODO]} #1}}}
-\newcommand{\cd}[1]{{\color{blue}{\textbf{[TODO]} #1}}}
-\newcommand{\ml}[1]{{\color{magenta}{\textbf{[ML]} #1}}}
 
 \newcommand{\x}{x}
 \newcommand{\y}{y}
