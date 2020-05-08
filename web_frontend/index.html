@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Infilling by Language Modeling</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom -->
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div id="backend">
+        <div class="row">
+          <div class="col">
+            <p id="server-instructions">
+	      To keep this web demo usable for as long as possible, we are asking users to launch the GPU server backend on the free Google Colab platform. This will take no more than a minute or two and should require minimal effort on your part. Absolutely none of your information will be stored.
+            </p>
+            <p>
+              <b>
+                Please open
+                <a href="https://colab.research.google.com/drive/1_sFwChk4i-RWEAj-APQvsl5zZROYsMuh#forceEdit=true&sandboxMode=true" target="_blank">
+                  our Google Colab notebook
+                </a>
+              </b>
+              in another tab to run the server, then paste the address below to
+              explore our infilling models:
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Server address: </label>
+            <input type="text" id="server-address" />
+            <button id="server-connect">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="frontend" hidden>
+
+        <div id="info" class="row">
+          <div class="col">
+            <p>
+              Click on the words/sentences/paragraphs below and click "Infill" (or
+              press <b>space bar</b>) to replace them. You may select several at a
+              time for replacement. If you are unsatisfied with the result, try
+              fetching more suggestions by pressing "Infill" (or <b>space bar</b>) multiple times.
+              <span class="text-danger">
+                Please do not share this link during the review period.
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div id="operate" class="row">
+          <div id="cloze-controls" class="col text-center mt-3 mb-3">
+
+            <button id="random-button">Random (from dev set)</button>
+            <button id="edit-button">Edit Raw Text</button>
+
+            <div hidden>
+              <label>Temperature</label>
+              <input
+                type="number"
+                id="temperature"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+              />
+            </div>
+            <div hidden>
+              <label>Top-K</label>
+              <input
+                type="number"
+                id="topk"
+                min="0"
+                max="128"
+                step="1"
+                value="0"
+              />
+            </div>
+            <div>
+              <label>Nucleus p</label>
+              <input
+                type="number"
+                id="nucleus"
+                min="0"
+                max="1"
+                step="0.01"
+                value=".9"
+              />
+            </div>
+          </div>
+          <div id="operate-ui"></div>
+        </div>
+
+        <div id="edit" class="row mb-3" hidden>
+          <div class="col-md-8 offset-md-2">
+            <textarea id="edit-text" rows="16"></textarea>
+          </div>
+          <div class="col-md-8 offset-md-2 text-center">
+            <button id="done-button">Done</button>
+          </div>
+        </div>
+
+        <div id="history-controls" class="row">
+          <div class="col text-center">
+            <button id="undo-button" class="btn btn-light" disabled>&#9664; Undo</button>
+            <button id="infill-button" class="btn btn-light">
+              <div id="infill-button-text">Infill</div>
+              <div id="infill-button-loading" class="lds-ellipsis" hidden><div></div><div></div><div></div><div></div></div>
+            </button>
+            <button id="redo-button" class="btn btn-light" disabled>Redo &#9654;</button>
+          </div>
+        </div>
+
+      </div><!-- frontend -->
+
+    </div><!-- container -->
+
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
