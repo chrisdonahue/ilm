@@ -1,0 +1,40 @@
+In this section, we describe our ILM framework. 
+We first outline a simple reparametrization of the infilling task. 
+Then, we define a procedure for automatically generating suitable training examples which can be fed to an off-the-shelf LM.
+
+\subsection{Formulation}\label{sec:formulation}
+
+\citet{fedus2018maskgan} explore an infilling framework where LMs are trained on concatenations of $\xtilde$ and $\x$, i.e., they use LMs to directly predict $\x$ given $\xtilde$. 
+While their approach is effective at infilling individual words, 
+it is somewhat redundant as the model must ``predict'' the unmasked text in $\xtilde$. 
+Additionally, a model is not guaranteed to exactly reproduce the unmasked text.
+
+Instead, 
+we make the trivial observation that it suffices to predict only the missing spans $\y$ which will replace the \blank{} tokens in $\xtilde$. 
+We can then construct $\x$ by simply replacing \blank{} tokens in $\xtilde$ with predicted spans $\y$ in a deterministic fashion. 
+In order to handle multiple variable-length spans, we pose $\y$ as the concatenation of all missing spans separated by special \answer{} tokens (one \answer{} per \blank{}) (\Cref{fig:infilling_training_example}). 
+We can thus cast infilling as learning $p(\y \mid \xtilde)$ without loss of generality.
+
+\subsection{Training}\label{sec:training}
+
+Given a corpus consisting of complete text examples,
+our framework first manufactures \emph{infilling examples} 
+and then trains an LM on these examples. 
+To produce an infilling example for a given $\x$, 
+we first sample an $\xtilde$ from a stochastic function $\Mask$ which randomly replaces some number of spans in $\x$ with \blank{} tokens. 
+Then, we concatenate together the spans which were replaced---separated by \answer{} tokens---to form a training target $\y$.
+Finally, we construct the complete infilling example by concatenating $\xtilde$, \sep{}, and $\y$ (see \Cref{fig:training_examples} for a complete example).
+
+We train (or fine-tune) LMs on these infilling examples using standard LM training methodology, yielding models of the form $\p(\y \mid \xtilde)$. 
+Specifically, we train GPT-2~\citep{radford2019language} off the shelf, but any LM can potentially be used. 
+
+This framework has several advantages.
+First, it incurs almost no computational overhead compared to language modeling. 
+Specifically, if there are $k$ missing spans in $\xtilde$, 
+the concatenation of $\xtilde$ and $\y$ contains only $2k+1$ more tokens than $\x$ (one \blank{} and one \answer{} per missing span plus one \sep{}).
+As $k$ is usually small (averaging around $2$ per example in our experiments), 
+sequence lengths remain similar to those encountered for the same $\x$ during language modeling. 
+In contrast, using LMs to directly predict $\x$ from $\xtilde$ as in \citet{fedus2018maskgan} effectively doubles the sequence length of $\x$. 
+This is particularly problematic when considering models like GPT-2 whose memory usage grows quadratically with sequence length. 
+Second, our framework requires minimal change (three additional tokens) to an existing LM's vocabulary.
+Finally, because the entirety of $\xtilde$ is in the ``past'' when predicting $\y$, the ILM framework combines the ability to attend to incorporate context on both sides of a blank with the simplicity of decoding from LMs. 

@@ -1,0 +1,151 @@
+%
+% File acl2020.tex
+%
+%% Based on the style files for ACL 2020, which were
+%% Based on the style files for ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2020}
+\usepackage{times}
+\usepackage{latexsym}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+\aclfinalcopy % Uncomment this line for the final submission
+\def\aclpaperid{2130} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\input{math_commands.tex}
+
+\usepackage{booktabs}
+\usepackage{cleveref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\stories}{\textsc{Stories}}
+\newcommand{\abstracts}{\textsc{Abstracts}}
+\newcommand{\lyrics}{\textsc{Lyrics}}
+\newcommand{\sto}{\textsc{Sto}}
+\newcommand{\abs}{\textsc{Abs}}
+\newcommand{\lyr}{\textsc{Lyr}}
+
+\newcommand{\textft}[1]{{\fontfamily{lmss}\selectfont{#1}}}
+\newcommand{\eos}{[\textft{end}]} % do not overwrite \end
+\newcommand{\blank}{[\textft{blank}]}
+\newcommand{\blankword}{[\textft{blank~word}]}
+\newcommand{\blanksentence}{[\textft{blank~sentence}]}
+\newcommand{\blankdocument}{[\textft{blank~document}]}
+\newcommand{\sep}{[\textft{sep}]}
+\newcommand{\answer}{[\textft{answer}]}
+
+\newcommand{\pl}[1]{{\color{red}{\textbf{[TODO]} #1}}}
+\newcommand{\cd}[1]{{\color{blue}{\textbf{[TODO]} #1}}}
+\newcommand{\ml}[1]{{\color{magenta}{\textbf{[ML]} #1}}}
+
+\newcommand{\x}{x}
+\newcommand{\y}{y}
+\newcommand{\xtilde}{\tilde{x}}
+
+\newcommand{\p}{p_{\theta}}
+\newcommand{\Mask}{\text{Mask}(\x)}
+\newcommand{\Answer}{\text{Answer}(\x, \xtilde)}
+
+\DeclareRobustCommand{\lm}{LM}
+\DeclareRobustCommand{\lmrev}{LM-Rev}
+\DeclareRobustCommand{\lmall}{LM-All}
+\DeclareRobustCommand{\ilm}{ILM}
+\DeclareRobustCommand{\lmscratch}{LM (scratch)}
+\DeclareRobustCommand{\lmrevscratch}{LM-Rev (scratch)}
+\DeclareRobustCommand{\lmallscratch}{LM-All (scratch)}
+\DeclareRobustCommand{\ilmscratch}{ILM (scratch)}
+
+\definecolor{mina-blue}{HTML}{003399}
+\definecolor{mina-skyblue}{HTML}{3366CC}
+\definecolor{mina-orange}{HTML}{FF6600}
+\definecolor{mina-yellow}{HTML}{FF9900}
+
+\DeclareRobustCommand{\lmcolored}{{\color{mina-blue}{\lm{}}}}
+\DeclareRobustCommand{\lmprecolored}{{\color{mina-skyblue}{\lmpre{}}}}
+\DeclareRobustCommand{\ilmcolored}{{\color{mina-orange}{\ilm{}}}}
+\DeclareRobustCommand{\ilmprecolored}{{\color{mina-yellow}{\ilmpre{}}}}
+
+\DeclareRobustCommand{\qone}{(\textbf{Q1})}
+\DeclareRobustCommand{\qtwo}{(\textbf{Q2})}
+
+\title{Enabling Language Models to Fill in the Blanks}
+
+\author{
+Chris Donahue \\ Stanford University \\
+\And Mina Lee \\ Stanford University \\ \texttt{\{cdonahue,minalee,pliang\}@cs.stanford.edu} 
+\And Percy Liang \\ Stanford University \\
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract.tex}
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+\input{sections/intro.tex}
+
+\section{Problem Statement}\label{sec:problem}
+\input{sections/problem.tex}
+
+\section{Infilling by Language Modeling}\label{sec:approach}
+\input{sections/approach.tex}
+
+\section{Experimental Setup}\label{sec:experiments}
+\input{sections/experimental_setup.tex}
+
+\section{Quantitative Evaluation}\label{sec:statistical}
+\input{sections/eval_statistical.tex}
+
+\section{Human Evaluation}\label{sec:human}
+\input{sections/eval_human.tex}
+
+\section{Related Work}\label{sec:related}
+\input{sections/related.tex}
+
+\section{Conclusion}\label{sec:conclusion}
+\input{sections/conclusion.tex}
+
+\section*{Acknowledgments}
+
+This work was funded by DARPA CwC under ARO prime contract no. W911NF-15-1-0462.
+We thank all reviewers for their helpful comments.
+
+\bibliography{all,acl2020}
+\bibliographystyle{acl_natbib}
+
+\clearpage
+
+\appendix
+
+\input{sections/appendix.tex}
+
+\end{document}

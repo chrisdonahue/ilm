@@ -1,0 +1,36 @@
+\paragraph{Methodology.}
+A number of systems have the capability to infill but have practical drawbacks. 
+Many systems are unable to automatically determine span length, and thus, can only infill fixed-length spans~\citep{fedus2018maskgan,devlin2019bert,yang2019xlnet,joshi2019spanbert,gu2019insertion,liu2019tigs}.
+%especially problematic when using subword encodings~\citep{wu2016google,sennrich2015bpe}. 
+%\citep{stern2019insertion} use insertions to generate sequences, but do not allow users for specification of where text should be inserted.
+Methods such as BERT present additional challenges during inference~\citep{wang2019bert}.
+\citet{rudinger2015script} frame narrative cloze as a generation task and employ language models, 
+but they only consider one infill of a fixed length. 
+\citet{zhu2019text,shen2020blank} infill multiple variable-length sequences, 
+but these approaches require the masked context to be iteratively updated and reprocessed to fill in blanks one a time. 
+In contrast, our approach appends infilled text to the context and does not require reprocessing the entire input sequence for each blank. 
+\citet{ai2019haim} train an LM which can fill in the middle of a paragraph given the first and last sentences---our work generalizes to such capabilities.
+
+
+\paragraph{Task.} The cloze task \citep{taylor1953cloze} evaluates language proficiency by asking systems to fill in randomly-deleted words by examining context. 
+Cloze has been extended in the forms of discourse~\citep{deyes1984towards} and narrative cloze~\citep{chambers2008narrative}, 
+which remove phrases and narrative events respectively.
+Recently, 
+cloze has been used not only for evaluation, but also to improve text generation quality~\citep{fedus2018maskgan}
+and transfer learning~\citep{devlin2019bert} (under the name ``masked language modeling'').
+Text infilling can be thought of as generalizing the cloze task from single words to spans of unknown length.
+\citet{raffel2019exploring} explore infilling as a pre-training objective to improve downstream performance on inference tasks;
+%, using a separate encoder for the masked context; 
+our work focuses on generation.
+%and uses a single model. 
+
+\paragraph{Story generation.}
+
+Recent work seeks to generate stories given a title and storyline \citep{peng2019plan}, 
+entities \citep{clark2018neural}, 
+premise \citep{fan2018hierarchical}, 
+or surrounding context and rare words \citep{ippolito2019unsupervised}. 
+Our work differs in that we aim to build systems capable of making predictions based only on text context, 
+rather than aspects specific to stories (e.g. storyline).
+%, or side information (e.g. rare words). 
+%We also aim to leverage existing models rather than building task-specific ones.

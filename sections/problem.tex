@@ -1,0 +1,6 @@
+The task of infilling is to take incomplete text $\xtilde$, containing one or more missing spans, and return completed text $\x$. 
+Let \blank{} be a placeholder for a contiguous sequence (span) of one or more missing tokens.
+Then, incomplete text $\xtilde$ is a sequence of tokens some of which are \blank{}.
+In order to map $\xtilde$ to $\x$, an infilling strategy must specify both \emph{how many} and \emph{which} tokens to generate for each \blank. 
+Note that there may be many reasonable $\x$ for a given $\xtilde$. 
+Hence, we are interested in learning a distribution $p(\x \mid \xtilde)$. 

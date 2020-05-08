@@ -1,0 +1,35 @@
+\begin{table}[t]
+    \centering
+    \begin{tabular}[t]{lcccc}
+        \toprule
+            & \sto{}   & \abs{}   & \lyr{}   & Length \\
+        \midrule
+\lm{} & 18.3 & 27.9 & 27.7 & 1.00\\
+\lmrev{} & 27.1 & 46.5 & 34.3 & 1.00 \\ 
+\lmall{} & 15.6 & 22.3 & 21.4 & 1.81\\
+\ilm{} & 15.6 & 22.4 & 22.6 & 1.01 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Quantitative evaluation results. We report test set perplexity (PPL) on the sentence infilling task for different model configurations on all three datasets, as well as average length of all test set examples in tokens relative to that of the original sequence (lower is better for all columns). 
+    Our proposed \ilm{} framework achieves better PPL than both \lm{} and \lmrev{}, implying that it is able to take advantage of both past and future context. 
+    \ilm{} achieves similar PPL to \lmall{} with shorter sequence lengths (hence less memory).}
+    \label{tab:ppl_sentences}
+\end{table}%
+
+We evaluate the quantitative performance of our models on the sentence infilling task by measuring PPL on test data.\footnote{Overlap-based metrics such as BLEU score~\citep{papineni2002bleu} are not appropriate for evaluating infilling as there are many realistic infills that have no word-level overlap with the original, e.g., ``a sandwich'' instead of ``leftover pasta.''} 
+In this setting, a sentence is selected at random and masked out, and we measure the likelihood assigned by a model to the masked sentence in the context of the rest of the document. 
+Regardless of differences in the ordering and number of tokens that each strategy uses to represent a test example, 
+PPL is always computed only for the span of tokens comprising the original sentence (e.g. green tokens in \Cref{fig:training_examples}). 
+% Results are in~\Cref{tab:ppl_sentences}.
+
+\Cref{tab:ppl_sentences} shows that across all datasets, \ilm{} outperforms models which see only past or future context (\lm{} and \lmrev{} respectively), 
+implying that our proposed framework is able to take advantage of bidirectional context despite using unidirectional models. 
+Additionally, 
+while one might expect \lmall{} to outperform \ilm{} because its training examples more closely ``resemble'' those of standard LMs, 
+\ilm{} achieves similar performance to \lmall{}.
+This indicates that GPT-2 is able to effectively learn the ``syntax'' of \ilm{} examples and achieve reasonable infilling performance with shorter sequences (and hence with much less memory usage).
+% The \ilm{} framework has another advantage over \lmall{} at inference time: with \ilm{} we can guarantee that the original unmasked context is exactly copied to the output.
+
+We also observe that models trained via \ilm{} perform similarly on the special case of language modeling compared to the models which were trained \emph{only} on language modeling 
+(\Cref{sec:quant_lm}). 
+This suggests that ILM does not just repurpose LMs to infill, but rather \emph{extends} their capabilities while maintaining their original functionality.
