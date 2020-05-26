@@ -77,7 +77,7 @@ This codebase includes scripts to download the three datasets used in our paper:
 
 ### Custom mask functions
 
-A mask function takes text and outputs random spans to masked based on some intended downstream behavior. By default, this repository trains ILM models which can mask words, ngrams, sentences, paragraphs, and entire documents.
+A mask function takes text and outputs random spans to masked which correspond to intended downstream behavior. By default, this repository trains ILM models which can infill words, ngrams, sentences, paragraphs, and entire documents.
 
 You can add your own mask functions to perform different infilling tasks. A mask function takes as input a complete document and outputs a list of 3-tuples consisting of `(infilling type, span offset, span length)`, where offset and length are measured in characters.
 
