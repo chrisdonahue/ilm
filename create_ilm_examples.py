@@ -134,7 +134,7 @@ if __name__ == '__main__':
       mask_arg0=None,
       max_num_documents=None,
       num_examples_per_document=16,
-      max_num_retries_per_example=1,
+      max_num_retries_per_example=16,
       min_masked_spans_per_example=None,
       max_masked_spans_per_example=None,
       ensure_unique_examples=True)

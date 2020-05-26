@@ -697,9 +697,9 @@ if __name__ == '__main__':
       train_max_num_examples=None,
       train_num_epochs=None,
       train_from_scratch=False,
-      train_batch_size=20,
-      train_batch_accumulation=1,
-      train_sequence_length=128,
+      train_batch_size=8,
+      train_batch_accumulation=3,
+      train_sequence_length=256,
       train_skip_naive_incomplete=False,
       train_eval_secs=360,
       train_summary_secs=360,
@@ -711,8 +711,8 @@ if __name__ == '__main__':
       eval_only=False,
       eval_examples_tag='valid',
       eval_max_num_examples=None,
-      eval_batch_size=20,
-      eval_sequence_length=128,
+      eval_batch_size=8,
+      eval_sequence_length=256,
       eval_skip_naive_incomplete=False)
   
   args = parser.parse_args()
