@@ -8,11 +8,11 @@ This codebase allows you to fine tune GPT-2 to _infill_, i.e., perform text gene
 
 We recommend installing this package using `virtualenv`. After activating the virtual environment, run the following commands:
 
-- `git clone git@github.com:chrisdonahue/ilm.git`
-- `cd ilm`
-- `pip install -r requirements.txt`
-- `python -c "import nltk; nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"`
-- `pip install -e .`
+1. `git clone git@github.com:chrisdonahue/ilm.git`
+1. `cd ilm`
+1. `pip install -r requirements.txt`
+1. `python -c "import nltk; nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"`
+1. `pip install -e .`
 
 ## Training a new model
 
@@ -42,7 +42,12 @@ do
 done
 ```
 
-Before training, you can optionally preview these examples: `python preview_ilm_examples.py data/char_masks/arxiv_cs_abstracts/train.pkl`
+Before training, you can optionally preview these examples
+
+```sh
+python preview_ilm_examples.py \
+	data/char_masks/arxiv_cs_abstracts/train.pkl
+```
 
 ### Training an ILM model
 
