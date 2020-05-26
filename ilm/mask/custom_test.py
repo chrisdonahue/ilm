@@ -1,9 +1,9 @@
 import random
 import unittest
 
-from ilm.mask.example import *
+from ilm.mask.custom import *
 
-class TestExample(unittest.TestCase):
+class TestCustom(unittest.TestCase):
 
   def test_mask_punctuation(self):
     doc = "This is a document; it contains words. a!b@c#d4e5"

@@ -11,7 +11,7 @@ We recommend installing this package using `virtualenv`. After activating the vi
 1. `git clone git@github.com:chrisdonahue/ilm.git`
 1. `cd ilm`
 1. `pip install -r requirements.txt`
-1. `python -c "import nltk; nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"`
+1. `python -c "import nltk; nltk.download('punkt')"`
 1. `pip install -e .`
 
 ## Training a new model
@@ -69,7 +69,24 @@ python train_ilm.py \
 
 Note that the training script automatically performs early stopping based on PPL on the validation set. To monitor training, you can set up an account on [Weights and Biases](https://www.wandb.com) and add the `--wandb` flag.
 
-## Adding new datasets and mask functions
+## Using custom datasets and mask functions
+
+This codebase includes scripts to download the three datasets used in our paper: [ROC stories](https://cs.rochester.edu/nlp/rocstories/), abstracts from arXiv, and song lyrics. By default, the scripts are configured to use the hierarchical mask function outlined in our paper. This section outlines how to train ILM models on [custom datasets](#custom-datasets) and [custom mask functions](#custom-mask-functions)
+
+### Custom datasets
+
+### Custom mask functions
+
+A mask function takes text and outputs random spans to masked based on some intended downstream behavior. By default, this repository trains ILM models which can mask words, ngrams, sentences, paragraphs, and entire documents.
+
+You can add your own mask functions to perform different infilling tasks. A mask function takes as input a complete document and outputs a list of 3-tuples consisting of `(infilling type, span offset, span length)`, where offset and length are measured in characters.
+
+You can add your custom mask function to [`ilm.mask.custom`](https://github.com/chrisdonahue/ilm_final/blob/master/ilm/mask/custom.py), where there are already two simple examples:
+
+- `ilm.mask.custom.MaskPunctuation`: Masks each punctuation token with 50% probability. Special infilling type for sentence terminals.
+- `ilm.mask.custom.MaskProperNoun`: Masks all (detected) proper nouns with 100% probability.
+
+Once you add your mask function, you should pass it as an argument to `create_ilm_examples.py` and `train_ilm.py` scripts e.g.: `--mask_cls ilm.mask.custom.YourCustomMaskFn`.
 
 ## Infilling with a trained model
 
