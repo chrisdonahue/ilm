@@ -22,10 +22,15 @@ The ILM framework involves a two step process of (1) creating ILM training examp
 
 The process of creating ILM examples involves randomly masking spans in complete text. For example, if the original text is `She ate leftover pasta for lunch`, an ILM example might look like `She ate [blank] for [blank] [sep] leftover pasta [answer] lunch [answer]`. For efficiency reasons, this codebase generates these examples up front before training.
 
-Start by downloading a dataset of scientific abstracts collected from arXiv by running: `pushd data; ./get_arxiv_cs_abstracts.sh; popd`. Then, use the following script to create ILM examples:
+The following script will download a dataset of scientific abstracts collected from arXiv and then create ILM examples for training:
 
 ```sh
 DATASET=arxiv_cs_abstracts
+
+pushd data
+./get_${DATASET}.sh
+popd
+
 for SPLIT in train valid
 do
 	python create_ilm_examples.py \
