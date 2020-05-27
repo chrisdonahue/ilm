@@ -57,14 +57,14 @@ PRETRAINED_MODELS = {
     'abs_lmallscratch': 'https://drive.google.com/open?id=1XU61GMduqJeCzYqDk8BQ7S4M8tbzqF9g',
     'abs_ilmscratch': 'https://drive.google.com/open?id=1ZTZOO5fVTlnPBw7EC_4OOEzHmcs6tAFO',
     # Trained on lyrics
-    'lyr_lm': '',
-    'lyr_lmrev': '',
-    'lyr_lmall': '',
-    'lyr_ilm': '',
-    'lyr_lmscratch': '',
-    'lyr_lmrevscratch': '',
-    'lyr_lmallscratch': '',
-    'lyr_ilmscratch': '',
+    'lyr_lm': 'https://drive.google.com/open?id=1FJBgz26lZPcanZTEf0iWxZCXIEM6esu6',
+    'lyr_lmrev': 'https://drive.google.com/open?id=1XAug1jhm7sa5lksDV6GMyF8sFQLwk1Y6',
+    'lyr_lmall': 'https://drive.google.com/open?id=1nrNkd4cBsdZS0eajA3wD1i5b6t6R6bow',
+    'lyr_ilm': 'https://drive.google.com/open?id=1nYuYCS5fDP2_vB7A92guk0PWh5CC2I5x',
+    'lyr_lmscratch': 'https://drive.google.com/open?id=1JzDRUSWVeyGnNaWKVYM8t1BPAs58t6uB',
+    'lyr_lmrevscratch': 'https://drive.google.com/open?id=1Kkli5Brmc3D6qE0b5ww5daZdZroaN1YB',
+    'lyr_lmallscratch': 'https://drive.google.com/open?id=18JYIBOtDfnksZPl4TW9cOzjOh_qDBCJP',
+    'lyr_ilmscratch': 'https://drive.google.com/open?id=1RObPpSttNtMw4UQ1bGiVzEM-94QqkwHT',
 }
 
 PRETRAINED_MODEL_CONFIG_JSON = 'https://drive.google.com/open?id=15JnXi7L6LeEB2fq4dFK2WRvDKyX46hVi'
@@ -77,33 +77,31 @@ def _gdrive_url_to_wget_cmd(gdrive_url, output_fp):
 
 # NOTE: https://chrisdonahue.com/gdrive-wget
 _CMD_TEMPL = """
-rm -rf {eval_tmp_dir}
-mkdir {eval_tmp_dir}
+mkdir -p {eval_tmp_dir}/data
+mkdir -p {eval_tmp_dir}/models/{model_tag}
 
 # Download pre-masked data
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id={data_id}' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id={data_id}" -O {eval_tmp_dir}/data.pkl && rm -rf /tmp/cookies.txt
+wget -nc --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id={data_id}' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id={data_id}" -O {eval_tmp_dir}/data/{data_tag}.pkl && rm -rf /tmp/cookies.txt
 
 # Download pre-trained model
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id={model_id}' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id={model_id}" -O {eval_tmp_dir}/pytorch_model.bin && rm -rf /tmp/cookies.txt
-wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=15JnXi7L6LeEB2fq4dFK2WRvDKyX46hVi' -O {eval_tmp_dir}/config.json
+wget -nc --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id={model_id}' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id={model_id}" -O {eval_tmp_dir}/models/{model_tag}/pytorch_model.bin && rm -rf /tmp/cookies.txt
+wget -nc --no-check-certificate 'https://docs.google.com/uc?export=download&id=15JnXi7L6LeEB2fq4dFK2WRvDKyX46hVi' -O {eval_tmp_dir}/models/{model_tag}/config.json
 
 # NOTE: train_ilm.py won't load weights unless it sees this file
-touch {eval_tmp_dir}/step.pkl
+touch {eval_tmp_dir}/models/{model_tag}/step.pkl
 
 python train_ilm.py \\
     eval \\
-    {eval_tmp_dir} \\
-    {eval_tmp_dir} \\
+    {eval_tmp_dir}/models/{model_tag} \\
+    {eval_tmp_dir}/data \\
     --mask_cls {mask_cls} \\
     --task {task} \\
     --data_no_cache \\
     --eval_only \\
-    --eval_examples_tag data \\
+    --eval_examples_tag {data_tag} \\
     --eval_batch_size 4 \\
     --eval_sequence_length 256 \\
     --eval_skip_naive_incomplete
-
-#rm -rf {eval_tmp_dir}
 """
 
 _PAPER_TASK_TO_INTERNAL = {
@@ -117,9 +115,9 @@ _PAPER_TASK_TO_INTERNAL = {
 if __name__ == '__main__':
   import sys
 
-  mask_tag, model_tag = sys.argv[1:]
+  data_tag, model_tag = sys.argv[1:]
 
-  mask_url = PREMASKED_DATA['test'][mask_tag]
+  mask_url = PREMASKED_DATA['test'][data_tag]
   model_url = PRETRAINED_MODELS[model_tag]
 
   if 'lyr' in model_tag:
@@ -131,6 +129,8 @@ if __name__ == '__main__':
 
   print(_CMD_TEMPL.format(
     eval_tmp_dir='./.evaltmp',
+    data_tag=data_tag,
+    model_tag=model_tag,
     data_id=mask_url.split('=')[-1],
     model_id=model_url.split('=')[-1],
     mask_cls=mask_cls,
