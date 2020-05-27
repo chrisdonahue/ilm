@@ -2,3 +2,4 @@ data/
 ilm.egg-info/
 __pycache__
 *.sh
+.evaltmp
