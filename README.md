@@ -98,7 +98,13 @@ We've included a script `acl20_eval_repro.py` which reproduces PPL numbers found
 1. Infilling type: One of `sentence`, `document`, `mixture`, `paragraph`, `ngram`, or `word` for paper Tables 1, 3, 4, 5, 7, and 8, respectively
 1. Model type: One of `lm`, `lmrev`, `lmall`, `ilm`, `lmscratch`, `lmrevscratch`, `lmallscratch`, `ilmscratch`
 
-For example, to reproduce Table 1 results for ILM on the Lyrics dataset, run: `python acl20_eval_repro.py stories sentence ilm | bash`. Look for the line in the output `eval_infill_textonly_ppl: 15.56...` which matches the value of `15.6` in the paper.
+For example, to reproduce PPL of ILM on the sentence infilling task for the Stories dataset (`15.6` in bottom left of Table 1), run:
+
+```sh
+python acl20_eval_repro.py stories sentence ilm | bash`
+```
+
+Look for the line in the output `eval_infill_textonly_ppl: 15.56...` which matches the value from the paper.
 
 Occasionally, the model will fail to download from Google Drive. If this happens (i.e., the evaluation isn't running to completion), simply run `rm -rf /tmp/ilm_reproduce` and try again.
 
