@@ -443,8 +443,14 @@ def train(args):
 
   # Create global step
   if resuming:
-    with open(out_fn_to_fp('step.pkl'), 'rb') as f:
-      step = pickle.load(f)
+    try:
+      with open(out_fn_to_fp('step.pkl'), 'rb') as f:
+        step = pickle.load(f)
+    except Exception as e:
+      if args.eval_only:
+        step = None
+      else:
+        raise e
   else:
     step = 0
 
