@@ -101,7 +101,7 @@ We've included a script `acl20_eval_repro.py` which reproduces PPL numbers found
 For example, to reproduce PPL of ILM on the sentence infilling task for the Stories dataset (`15.6` in bottom left of Table 1), run:
 
 ```sh
-python acl20_eval_repro.py stories sentence ilm | bash`
+python acl20_eval_repro.py stories sentence ilm | bash
 ```
 
 Look for the line in the output `eval_infill_textonly_ppl: 15.56...` which matches the value from the paper.
