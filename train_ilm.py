@@ -488,10 +488,12 @@ def train(args):
         loss /= count
       eval_dict['eval_{}_count'.format(tag)] = count
       eval_dict['eval_{}_loss'.format(tag)] = loss
+      eval_dict['eval_{}_ppl'.format(tag)] = np.exp(loss)
     eval_dict['eval_time'] = time.time() - eval_start
 
     print('-' * 80)
-    print('(Step {}) Eval'.format(step))
+    if step is not None:
+      print('(Step {}) Eval'.format(step))
     for k, v in eval_dict.items():
       print('{}: {}'.format(k, v))
     if args.wandb:
