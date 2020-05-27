@@ -128,7 +128,7 @@ if __name__ == '__main__':
   task = _PAPER_TASK_TO_INTERNAL[model_tag.split('_')[-1].replace('scratch', '')]
 
   print(_CMD_TEMPL.format(
-    eval_tmp_dir='./.evaltmp',
+    eval_tmp_dir='/tmp/ilm_reproduce',
     data_tag=data_tag,
     model_tag=model_tag,
     data_id=mask_url.split('=')[-1],
