@@ -115,7 +115,10 @@ _PAPER_TASK_TO_INTERNAL = {
 if __name__ == '__main__':
   import sys
 
-  data_tag, model_tag = sys.argv[1:]
+  dataset, infill_type, model_type = sys.argv[1:]
+
+  data_tag = '{}_{}'.format(dataset, infill_type)
+  model_tag = '{}_{}'.format(dataset, model_type)
 
   mask_url = PREMASKED_DATA['test'][data_tag]
   model_url = PRETRAINED_MODELS[model_tag]
