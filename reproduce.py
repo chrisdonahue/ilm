@@ -87,6 +87,9 @@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id={model_id}' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id={model_id}" -O {eval_tmp_dir}/pytorch_model.bin && rm -rf /tmp/cookies.txt
 wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=15JnXi7L6LeEB2fq4dFK2WRvDKyX46hVi' -O {eval_tmp_dir}/config.json
 
+# NOTE: train_ilm.py won't load weights unless it sees this file
+touch {eval_tmp_dir}/step.pkl
+
 python train_ilm.py \\
     eval \\
     {eval_tmp_dir} \\
