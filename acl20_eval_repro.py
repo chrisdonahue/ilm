@@ -117,8 +117,8 @@ if __name__ == '__main__':
 
   dataset, infill_type, model_type = sys.argv[1:]
 
-  data_tag = '{}_{}'.format(dataset, infill_type)
-  model_tag = '{}_{}'.format(dataset, model_type)
+  data_tag = '{}_{}'.format(dataset[:3], infill_type)
+  model_tag = '{}_{}'.format(dataset[:3], model_type)
 
   mask_url = PREMASKED_DATA['test'][data_tag]
   model_url = PRETRAINED_MODELS[model_tag]

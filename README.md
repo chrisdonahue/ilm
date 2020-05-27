@@ -94,11 +94,11 @@ Once you add your mask function, you should pass it as an argument to `create_il
 
 We've included a script `acl20eval_repro.py` which reproduces PPL numbers found in our ACL paper. This script will print out another script which, if run, downloads the relevant pre-trained model (~500MB) and pre-masked test data and computes the PPL. It takes three arguments:
 
-1. Dataset name: One of `abs`, `sto`, or `lyr`
+1. Dataset name: One of `abstracts`, `stories`, or `lyrics`
 1. Infilling type: One of `sentence`, `document`, `mixture`, `paragraph`, `ngram`, or `word` for paper Tables 1, 3, 4, 5, 7, and 8, respectively
 1. Model type: One of `lm`, `lmrev`, `lmall`, `ilm`, `lmscratch`, `lmrevscratch`, `lmallscratch`, `ilmscratch`
 
-For example, to reproduce Table 1 results for ILM on the Lyrics dataset, run: `python acl20eval_repro.py sto sentence ilm | bash`. Look for the line in the output `eval_infill_textonly_ppl: 15.56...` which matches the value of `15.6` in the paper.
+For example, to reproduce Table 1 results for ILM on the Lyrics dataset, run: `python acl20eval_repro.py stories sentence ilm | bash`. Look for the line in the output `eval_infill_textonly_ppl: 15.56...` which matches the value of `15.6` in the paper.
 
 Occasionally, the model will fail to download from Google Drive. If this happens (i.e., the evaluation isn't running to completion), simply run `rm -rf /tmp/ilm_reproduce` and try again.
 
