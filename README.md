@@ -94,7 +94,7 @@ Once you add your mask function, you should pass it as an argument to `create_il
 
 ### Training
 
-We've included a script `acl20_repro_train.py` which will re-train the models from our ACL paper. This script will print out another script which, if run, downloads the training examples and re-trains the model. The script takes two arguments:
+We've included a script `acl20_repro_train.py` which will re-train models using the same hyperparameters we used in our ACL paper. This script will print out another script which, if run, downloads the training examples and re-trains the model. The script takes two arguments:
 
 1. Dataset name: One of `abstracts`, `stories`, or `lyrics`
 1. Model type: One of `lm`, `lmrev`, `lmall`, `ilm`, `lmscratch`, `lmrevscratch`, `lmallscratch`, `ilmscratch`
@@ -105,7 +105,7 @@ For example, to train an ILM on the stories dataset, run:
 python acl20_repro_train.py stories ilm | bash
 ```
 
-Each experiment will take 1-2 days on a GPU and perform early stopping automatically. Note that the resultant model may differ slightly from the models we evaluated in our paper; our paper experiments were sometimes paused and re-started during training which affected the ordering of training data.
+Each experiment will take 1-2 days on a GPU, and early stopping is performed automatically. Note that the resultant model may differ slightly from the models we evaluated in our paper; our paper experiments were sometimes paused and re-started during training which affected the ordering of training data.
 
 ### Evaluation
 
