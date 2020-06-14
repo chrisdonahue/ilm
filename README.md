@@ -90,18 +90,35 @@ Once you add your mask function, you should pass it as an argument to `create_il
 
 ## Infilling with a trained model
 
-## Reproducing PPL results from ACL 2020 paper
+## Reproducing results from ACL 2020 paper
 
-We've included a script `acl20_eval_repro.py` which reproduces PPL numbers found in our ACL paper. This script will print out another script which, if run, downloads the relevant pre-trained model (~500MB) and pre-masked test data and computes the PPL. It takes three arguments:
+### Training
+
+We've included a script `acl20_repro_train.py` which will re-train the models from our ACL paper. This script will print out another script which, if run, downloads the training examples and re-trains the model. The script takes two arguments:
 
 1. Dataset name: One of `abstracts`, `stories`, or `lyrics`
-1. Infilling type: One of `sentence`, `document`, `mixture`, `paragraph`, `ngram`, or `word` for paper Tables 1, 3, 4, 5, 7, and 8, respectively
 1. Model type: One of `lm`, `lmrev`, `lmall`, `ilm`, `lmscratch`, `lmrevscratch`, `lmallscratch`, `ilmscratch`
+
+For example, to train an ILM on the stories dataset, run:
+
+```sh
+python acl20_repro_train.py stories ilm | bash
+```
+
+Each experiment will take 1-2 days on a GPU and perform early stopping automatically. Note that the resultant model may differ slightly from the models we evaluated in our paper; our paper experiments were sometimes paused and re-started during training which affected the ordering of training data.
+
+### Evaluation
+
+We've included a script `acl20_repro_eval.py` which _exactly_ reproduces PPL numbers found in our ACL paper. This script will print out another script which, if run, downloads the relevant pre-trained model (~500MB) and pre-masked test data and computes the PPL. It takes three arguments:
+
+1. Dataset name: One of `abstracts`, `stories`, or `lyrics`
+1. Model type: One of `lm`, `lmrev`, `lmall`, `ilm`, `lmscratch`, `lmrevscratch`, `lmallscratch`, `ilmscratch`
+1. Infilling type: One of `sentence`, `document`, `mixture`, `paragraph`, `ngram`, or `word` for paper Tables 1, 3, 4, 5, 7, and 8, respectively
 
 For example, to reproduce PPL of ILM on the sentence infilling task for the Stories dataset (`15.6` in bottom left of Table 1), run:
 
 ```sh
-python acl20_eval_repro.py stories sentence ilm | bash 2> /dev/null | grep eval_infill_textonly_ppl
+python acl20_repro_eval.py stories ilm sentence | bash 2> /dev/null | grep eval_infill_textonly_ppl
 ```
 
 You should see the output `eval_infill_textonly_ppl: 15.56...` which matches the value from the paper.
