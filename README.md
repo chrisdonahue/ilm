@@ -1,0 +1,1 @@
+This older version of the codebase was used to train the models featured in our [web demo](chrisdonahue.com/ilm). It is now deprecated, but preserved here for posterity / reproducibility. Please see the `master` branch of this repository for a more extensible implementation of ILM.
