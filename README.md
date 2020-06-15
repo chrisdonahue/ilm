@@ -106,6 +106,7 @@ We've included a script `acl20_repro_train.py` which will re-train models using 
 For example, to train an ILM on the stories dataset, run:
 
 ```sh
+export ILM_DIR=/tmp/ilm
 python acl20_repro_train.py stories ilm | bash
 ```
 
@@ -122,6 +123,7 @@ We've included a script `acl20_repro_eval.py` which _exactly_ reproduces PPL num
 For example, to reproduce PPL of ILM on the sentence infilling task for the Stories dataset (`15.6` in bottom left of Table 1), run:
 
 ```sh
+export ILM_DIR=/tmp/ilm
 python acl20_repro_eval.py stories ilm sentence | bash 2> /dev/null | grep eval_infill_textonly_ppl
 ```
 
