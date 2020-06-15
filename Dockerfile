@@ -19,7 +19,7 @@ RUN python -m pip install --no-cache-dir --upgrade pip && \
     torch==1.4.0 \
     tokenizers==0.5.2 \
     transformers==2.7.0 \
-    tqdm==4.46.0 \
+    tqdm==4.46.0
 RUN python -c "import nltk; nltk.download('punkt')"
 RUN mkdir -p /tmp/ilm/eval_repro/data
 RUN mkdir -p /tmp/ilm/eval_repro/models/abs_ilm
