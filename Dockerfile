@@ -21,6 +21,32 @@ RUN python -m pip install --no-cache-dir --upgrade pip && \
     transformers==2.7.0 \
     tqdm==4.46.0 \
 RUN python -c "import nltk; nltk.download('punkt')"
+RUN mkdir -p /tmp/ilm/eval_repro/data
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_ilm
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_ilmscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_lm
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_lmall
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_lmallscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_lmrev
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_lmrevscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/abs_lmscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_ilm
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_ilmscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_lm
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_lmall
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_lmallscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_lmrev
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_lmrevscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/lyr_lmscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_ilm
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_ilmscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_lm
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_lmall
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_lmallscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_lmrev
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_lmrevscratch
+RUN mkdir -p /tmp/ilm/eval_repro/models/sto_lmscratch
+RUN mkdir -p /tmp/ilm/train_repro/data
 RUN wget -nc --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1-FGKu-bodqOsCGrFCYY6Yyp2rTk2rRpc' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1-FGKu-bodqOsCGrFCYY6Yyp2rTk2rRpc" -O /tmp/ilm/eval_repro/models/sto_lm/pytorch_model.bin && rm -rf /tmp/cookies.txt
 RUN wget -nc --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=103Cw2ZSb5g5PlTKslmbmhqCaxn3N65OO' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=103Cw2ZSb5g5PlTKslmbmhqCaxn3N65OO" -O /tmp/ilm/eval_repro/models/abs_lmscratch/pytorch_model.bin && rm -rf /tmp/cookies.txt
 RUN wget -nc --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=10ScpFR8sG3Ur0WpWdkPYxAsT94jNNmZh' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=10ScpFR8sG3Ur0WpWdkPYxAsT94jNNmZh" -O /tmp/ilm/eval_repro/data/lyr_paragraph_test.pkl && rm -rf /tmp/cookies.txt
