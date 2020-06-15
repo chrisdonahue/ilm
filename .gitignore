@@ -4,3 +4,4 @@ __pycache__
 *.sh
 .evaltmp
 wandb/
+.*.swp
