@@ -4,6 +4,8 @@ This repository houses the code for the ILM framework outlined in the ACL 2020 p
 
 This codebase allows you to fine tune GPT-2 to _infill_, i.e., perform text generation conditioned on both past and future context. For example, you could train GPT-2 to infill proper nouns in news articles, or generate lines of poetry in the middle of the stanza.
 
+An interactive webdemo can be found at [chrisdonahue.com/ilm](https://chrisdonahue.com/ilm).
+
 ## Installation
 
 We recommend installing this package using `virtualenv`. After activating the virtual environment, run the following commands:
