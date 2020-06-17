@@ -94,7 +94,7 @@ Once you add your mask function, you should pass it as an argument to `create_il
 
 ## Infilling with a trained model
 
-See `inference.ipynb` for an example of how to perform infilling with a trained model.
+See `inference.ipynb` for an example of how to perform infilling with a trained model. If you prefer, you may also run this notebook on [Google Colab](https://colab.research.google.com/drive/1So95M0hHefyNm_eELglCna_ZayoDX6KV?usp=sharing).
 
 ## Reproducing results from ACL 2020 paper
 
