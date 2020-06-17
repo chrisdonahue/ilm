@@ -68,6 +68,7 @@ PRETRAINED_MODELS = {
 }
 
 PRETRAINED_MODEL_CONFIG_JSON = 'https://drive.google.com/open?id=15JnXi7L6LeEB2fq4dFK2WRvDKyX46hVi'
+PRETRAINED_SPECIAL_VOCAB_PKL = 'https://drive.google.com/open?id=1nTQVe2tfkWV8dumbrLIHzMgPwpLIbYUd'
 
 PAPER_TASK_TO_INTERNAL = {
     'lm': 'lm',
@@ -75,3 +76,45 @@ PAPER_TASK_TO_INTERNAL = {
     'lmall': 'naive',
     'ilm': 'ilm',
 }
+
+_DOWNLOAD_TEMPLATE = """
+wget -nc --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id={gdrive_id}' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id={gdrive_id}" -O {local_path} && rm -rf /tmp/cookies.txt
+""".strip()
+
+if __name__ == '__main__':
+  import os
+  import sys
+
+  try:
+    out_dir = os.environ['ILM_DIR']
+  except:
+    out_dir = '/tmp/ilm'
+
+  if sys.argv[1] == 'model':
+    data_tag, model_type = sys.argv[2:]
+    model_tag = '{}_{}'.format(data_tag[:3], model_type)
+    out_dir = os.path.join(out_dir, 'models', model_tag)
+    gdrive_urls = [
+        PRETRAINED_MODELS[model_tag],
+        PRETRAINED_MODEL_CONFIG_JSON,
+        PRETRAINED_SPECIAL_VOCAB_PKL]
+    local_fns = [
+        'pytorch_model.bin',
+        'config.json',
+        'additional_ids_to_tokens.pkl']
+  elif sys.argv[1] == 'data_train':
+    data_tag = sys.argv[2][:3]
+    out_dir = os.path.join(out_dir, 'data')
+    gdrive_urls = [PREMASKED_DATA[s]['{}_mixture'.format(data_tag)] for s in ['train', 'valid']]
+    local_fns = ['{}_mixture_{}.pkl'.format(data_tag, s) for s in ['train', 'valid']]
+  elif sys.argv[1] == 'data_eval':
+    data_tag = sys.argv[2][:3]
+    out_dir = os.path.join(out_dir, 'data')
+    gdrive_urls = [PREMASKED_DATA['test']['{}_{}'.format(data_tag, g)] for g in ['mixture', 'document', 'paragraph', 'sentence', 'ngram', 'word']]
+    local_fns = ['{}_{}_test.pkl'.format(data_tag, g) for g in ['mixture', 'document', 'paragraph', 'sentence', 'ngram', 'word']]
+
+  print('mkdir -p {}'.format(out_dir))
+  for gdrive_url, local_fn in zip(gdrive_urls, local_fns):
+    print(_DOWNLOAD_TEMPLATE.format(
+      gdrive_id=gdrive_url.split('=')[1],
+      local_path=os.path.join(out_dir, local_fn)))
