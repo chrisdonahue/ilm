@@ -7,7 +7,7 @@ window.ilm = window.ilm || {};
   ilm.config.DEFAULT_TEXT_SEED = 0;
   ilm.config.SERVER_ADDRESS = null;
   ilm.config.SERVER_CONNECT_ISSUE_MSG =
-    "Could not connect to backend. Please make sure your server address looks something like '123a4bcd.ngrok.io'. If it does, please try pressing 'Connect' after a few seconds. If that doesn't work, please rerun the second cell on the Colab notebook and try again. If the demo still doesn't work, we sincerely apologize and will hopefully fix it ASAP.";
+    "Could not connect to backend. Please make sure your server address looks something like '123a4bcd.ngrok.io'. If it does, please try pressing 'Connect' after a few seconds. If that doesn't work, please rerun the second cell on the Colab notebook and try again. If the demo still doesn't work, please add in your ngrok credentials at the bottom of the Colab notebook.";
 })(window.ilm);
 
 window.ilm = window.ilm || {};
