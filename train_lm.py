@@ -7,6 +7,7 @@ import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler, TensorDataset)
 from pytorch_transformers import GPT2Tokenizer
 from transformers import GPT2Config, GPT2LMHeadModel, AdamW, WEIGHTS_NAME, CONFIG_NAME
+from tqdm import tqdm
 import wandb
 
 
@@ -42,7 +43,7 @@ def load_and_encode_paragraphs(
     paragraphs = raw_text.strip().split('\n\n')
 
   # Encode
-  paragraphs = [tokenizer.encode(p) for p in paragraphs]
+  paragraphs = [tokenizer.encode(p) for p in tqdm(paragraphs)]
 
   # Prepend special token at end of each paragraph
   if special_token_to_prepend is not None:
