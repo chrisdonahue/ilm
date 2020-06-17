@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler, TensorDataset)
 from pytorch_transformers import GPT2Tokenizer
-from transformers import GPT2Config, GPT2LMHeadModel, AdamW, WarmupLinearSchedule, WEIGHTS_NAME, CONFIG_NAME
+from transformers import GPT2Config, GPT2LMHeadModel, AdamW, WEIGHTS_NAME, CONFIG_NAME
 import wandb
 
 
