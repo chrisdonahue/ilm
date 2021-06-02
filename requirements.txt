@@ -22,4 +22,4 @@ tokenizers==0.5.2
 torch==1.4.0
 tqdm==4.46.0
 transformers==2.7.0
-urllib3==1.25.9
+urllib3==1.26.5
