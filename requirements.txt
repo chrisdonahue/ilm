@@ -8,7 +8,7 @@ docutils==0.15.2
 filelock==3.0.12
 idna==2.9
 jmespath==0.10.0
-joblib==0.15.1
+joblib==1.2.0
 nltk==3.4.5
 numpy==1.18.2
 python-dateutil==2.8.1
